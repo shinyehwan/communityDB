@@ -16,35 +16,39 @@ public class ArticleService {
         return articleRepository.getArticles();
     }
 
-	public ArticleDto getArticleById(long id) {
-		return articleRepository.getArticleById(id);
-	}
+    public ArticleDto getArticleById(long id) {
+        return articleRepository.getArticleById(id);
+    }
 
-	public long getArticlesCount() {
-		return articleRepository.getArticlesCount();
-	}
+    public long getArticlesCount() {
+        return articleRepository.getArticlesCount();
+    }
 
-	public long write(String title, String body, boolean isBlind) {
-		return articleRepository.write(title, body, isBlind);
-	}
+    public long write(String title, String body) {
+        return write(title, body, false);
+    }
 
-	public void modify(int id, String title, String body, boolean isBlind) {
-		articleRepository.modify(id, title, body, isBlind);
-	}
+    public long write(String title, String body, boolean isBlind) {
+        return articleRepository.write(title, body, isBlind);
+    }
 
-	public void delete(long id) {
-		articleRepository.delete(id);
-	}
+    public void modify(long id, String title, String body, boolean isBlind) {
+        articleRepository.modify(id, title, body, isBlind);
+    }
 
-	public ArticleDto getPrevArticle(ArticleDto articleDto) {
-		return getPrevArticle(articleDto.getId());
-	}
+    public void delete(long id) {
+        articleRepository.delete(id);
+    }
 
-	public ArticleDto getPrevArticle(long id) {
-		return articleRepository.getPrevArticle(id);
-	}
+    public ArticleDto getPrevArticle(ArticleDto articleDto) {
+        return getPrevArticle(articleDto.getId());
+    }
 
-	public ArticleDto getNextArticle(long id) {
-		return articleRepository.getNextArticle(id);
-	}
+    public ArticleDto getPrevArticle(long id) {
+        return articleRepository.getPrevArticle(id);
+    }
+
+    public ArticleDto getNextArticle(long id) {
+        return articleRepository.getNextArticle(id);
+    }
 }
