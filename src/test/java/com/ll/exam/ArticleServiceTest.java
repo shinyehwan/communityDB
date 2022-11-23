@@ -30,7 +30,6 @@ public class ArticleServiceTest {
 
 	// @BeforeAll 붙인 아래 메서드는
 	@BeforeAll
-
 	public void BeforeAll() {
 		// 모든 DB 처리시에, 처리되는 SQL을 콘솔에 출력
 		myMap.setDevMode(true);
@@ -52,7 +51,7 @@ public class ArticleServiceTest {
 
 	private void makeArticleTestData() {
 		IntStream.rangeClosed(1, TEST_DATA_SIZE).forEach(no -> {
-			boolean isBlind = false;
+			boolean isBlind = no >= 11 && no <= 20;
 			String title = "제목%d".formatted(no);
 			String body = "내용%d".formatted(no);
 
@@ -158,5 +157,27 @@ public class ArticleServiceTest {
 		ArticleDto nullArticleDto = articleService.getPrevArticle(id1ArticleDto);
 
 		assertThat(nullArticleDto).isNull();
+	}
+
+	@Test
+	public void _2번글의_다음글은_3번글_이다() {
+		ArticleDto id3ArticleDto = articleService.getNextArticle(2);
+
+		assertThat(id3ArticleDto.getId()).isEqualTo(3);
+	}
+
+	@Test
+	public void _마지막글의_다음글은_없다() {
+		long lastArticleId = TEST_DATA_SIZE;
+		ArticleDto nullArticleDto = articleService.getNextArticle(lastArticleId);
+
+		assertThat(nullArticleDto).isNull();
+	}
+
+	@Test
+	public void _10번글의_다음글은_21번글_이다_왜냐하면_11번글부터_20번글까지는_블라인드라서() {
+
+		ArticleDto nextArticleDto = articleService.getNextArticle(10);
+		assertThat(nextArticleDto.getId()).isEqualTo(21);
 	}
 }
